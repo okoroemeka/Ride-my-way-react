@@ -1,0 +1,20 @@
+.container {
+  .row {
+    padding: 0;
+    #banner {
+      color: white;
+      text-align: center;
+      height: 100vh;
+      background-image: url('../../assets/images/taxi.jpg');
+      background-position: center;
+      background-repeat: no-repeat;
+      background-size: cover;
+    }
+    .auth-area {
+      justify-content: center;
+      h1 {
+        text-align: center;
+      }
+    }
+  }
+}
