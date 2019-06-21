@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { Mutation } from 'react-apollo';
+import PropTypes from 'prop-types';
 import gql from 'graphql-tag';
 import Error from '../commons/Error';
-import './Signup.scss';
+import '../commons/auth.scss';
 
 const SIGNUP_MUTATION = gql`
   mutation signupMutation(
@@ -61,6 +62,7 @@ class Signup extends Component {
     const {
       firstname, email, password, confirmPassword, lastname, phone,
     } = this.state;
+    const { click } = this.props;
     return (
       <Mutation
         mutation={SIGNUP_MUTATION}
@@ -136,7 +138,9 @@ class Signup extends Component {
                 <h6>
                   Already have an account?
                   {' '}
-                  <Link to="/signin">Login</Link>
+                  <Link to="/signin" onClick={click}>
+                    Login
+                  </Link>
                 </h6>
               </fieldset>
             </form>
@@ -146,5 +150,8 @@ class Signup extends Component {
     );
   }
 }
+Signup.propTypes = {
+  click: PropTypes.func.isRequired,
+};
 
 export default Signup;

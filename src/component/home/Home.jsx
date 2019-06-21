@@ -8,6 +8,12 @@ class Home extends Component {
     isLoginPage: false,
   };
 
+  onClick = (e) => {
+    const { isLoginPage } = this.state;
+    e.preventDefault();
+    this.setState({ isLoginPage: !isLoginPage });
+  };
+
   render() {
     const { isLoginPage } = this.state;
     return (
@@ -15,7 +21,7 @@ class Home extends Component {
         <div className="col-6" id="banner" />
         <div className="col-6 auth-area">
           <h1>Hail a ride</h1>
-          {isLoginPage ? <Signin /> : <Signup />}
+          {isLoginPage ? <Signin click={this.onClick} /> : <Signup click={this.onClick} />}
         </div>
       </div>
     );
