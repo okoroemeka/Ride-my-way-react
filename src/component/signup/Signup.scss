@@ -1,0 +1,39 @@
+@import '../commons/common.scss';
+.signup {
+  padding: 0.8rem 5rem;
+  form {
+    box-shadow: 0 0 5px 3px rgba(0, 0, 0, 0.05);
+    background: rgba(0, 0, 0, 0.02);
+    border: 5px solid $white;
+    padding: 20px;
+    font-size: 1.2rem;
+    line-height: 1.2;
+    font-weight: 600;
+    label {
+      font-size: 1rem;
+      display: block;
+      margin-bottom: 0.7rem;
+      input {
+        width: 100%;
+        padding: 0.5rem;
+        font-size: 1rem;
+        border: 1px solid $gray;
+        border-radius: 3px;
+        &:focus {
+          outline: 0;
+          border-color: $gray;
+        }
+      }
+    }
+    button {
+      color: $white;
+      font-size: 0.9rem;
+      font-weight: bold;
+      padding: 12px 18px;
+      border: none;
+      border-radius: 3px;
+      background-color: $gray;
+      cursor: pointer;
+    }
+  }
+}

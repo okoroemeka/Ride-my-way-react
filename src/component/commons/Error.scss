@@ -1,0 +1,13 @@
+@import './common.scss';
+.row {
+  padding: 2px;
+  .error {
+    color: $white;
+    font-size: 0.9rem;
+    background: $red;
+    border: none;
+    padding-left: 3px;
+    border-radius: 3px;
+    margin-bottom: 2px;
+  }
+}
