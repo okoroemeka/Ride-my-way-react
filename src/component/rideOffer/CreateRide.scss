@@ -1,0 +1,76 @@
+@import '../commons/common.scss';
+.ride-offer {
+  height: 100vh;
+  .join-ride-container {
+    justify-content: center;
+    background-image: url('../../assets/images/taxi.jpg');
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    .ride-offer-overlay {
+      width: 100%;
+      height: 100%;
+      text-align: center;
+      background-color: rgba(0, 0, 0, 0.2);
+      .join-ride {
+        color: $white;
+        display: inline-block;
+        text-decoration: none;
+        padding: 16px 70px;
+        margin: 430px 0px;
+        border-radius: 3px;
+        background-color: rgba(0, 0, 0, 0.4);
+        border: 1px solid $white;
+        transition: 50ms;
+        &:hover {
+          border: none;
+          cursor: pointer;
+          background-color: $green_dark;
+        }
+      }
+    }
+
+    // &:container {
+    // }
+  }
+  .create-ride-container {
+    .create-ride {
+      padding: 4rem 5rem;
+      form {
+        box-shadow: 0 0 5px 3px rgba(0, 0, 0, 0.05);
+        background: #00000005;
+        border: 5px solid $white;
+        padding: 20px;
+        font-size: 1.2rem;
+        line-height: 1.2;
+        font-weight: 600;
+        label {
+          font-size: 1rem;
+          display: block;
+          margin-bottom: 0.7rem;
+          input {
+            width: 100%;
+            padding: 0.5rem;
+            font-size: 1rem;
+            border: 1px solid $gray;
+            border-radius: 3px;
+            &:focus {
+              outline: 0;
+              border-color: $gray;
+            }
+          }
+        }
+        button {
+          color: $white;
+          font-size: 0.9rem;
+          font-weight: bold;
+          padding: 12px 18px;
+          border: none;
+          border-radius: 3px;
+          background-color: $gray;
+          cursor: pointer;
+        }
+      }
+    }
+  }
+}

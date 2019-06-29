@@ -1,4 +1,6 @@
 import React, { StrictMode } from 'react';
+import { BrowserRouter, Switch } from 'react-router-dom';
+
 import { ApolloProvider } from 'react-apollo';
 // import dotenv from 'dotenv';
 import { ApolloClient } from 'apollo-client';
@@ -12,6 +14,7 @@ import App from './App';
 const cache = new InMemoryCache();
 const link = new HttpLink({
   uri: 'http://localhost:4000/',
+  credentials: 'include',
 });
 
 const client = new ApolloClient({
