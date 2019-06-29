@@ -18,9 +18,11 @@ class Home extends Component {
     const { isLoginPage } = this.state;
     return (
       <div className="row">
-        <div className="col-6" id="banner" />
-        <div className="col-6 auth-area">
+        <div className="col-6" id="banner">
           <h1>Hail a ride</h1>
+          <h3>Join our community of car pool to offer or create a ride</h3>
+        </div>
+        <div className="col-6 auth-area">
           {isLoginPage ? <Signin click={this.onClick} /> : <Signup click={this.onClick} />}
         </div>
       </div>

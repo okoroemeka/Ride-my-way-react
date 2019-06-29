@@ -2,6 +2,7 @@ import React, { Component, Fragment } from 'react';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import Home from './component/home/Home';
 import Header from './component/header/Header';
+import CreateRideOffer from './component/rideOffer/CreateRideOffer';
 import './styles/style.css';
 
 class App extends Component {
@@ -17,7 +18,9 @@ class App extends Component {
           {!isAuth && <Header />}
           <Fragment>
             <Switch>
-              <Route to="/" exact component={Home} />
+              <Route exact path="/" component={Home} />
+              <Route path="/ride-offer" component={CreateRideOffer} />
+              <Route path="/request" component={CreateRideOffer} />
             </Switch>
           </Fragment>
         </BrowserRouter>
