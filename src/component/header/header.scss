@@ -1,0 +1,19 @@
+@import '../commons/common.scss';
+.header-container {
+  position: fixed;
+  height: 80px;
+  color: $white;
+  background-color: $black;
+  .header-name {
+    padding-left: 10px;
+  }
+  .pages {
+    text-align: right;
+    padding-top: 1.7rem;
+    .nav-items {
+      color: $white;
+      margin-right: 15px;
+      text-decoration: none;
+    }
+  }
+}
