@@ -1,7 +1,9 @@
 @import '../commons/common.scss';
 .signup,
 .signin {
-  padding: 4rem 5rem;
+  padding: 2rem 5rem;
+  position: relative;
+  margin-top: 1.3rem;
   form {
     box-shadow: 0 0 5px 3px rgba(0, 0, 0, 0.05);
     background: rgba(0, 0, 0, 0.02);

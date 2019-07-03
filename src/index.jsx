@@ -1,6 +1,5 @@
 import React, { StrictMode } from 'react';
-import { BrowserRouter, Switch } from 'react-router-dom';
-
+import { BrowserRouter } from 'react-router-dom';
 import { ApolloProvider } from 'react-apollo';
 // import dotenv from 'dotenv';
 import { ApolloClient } from 'apollo-client';
@@ -25,7 +24,9 @@ const client = new ApolloClient({
 ReactDOM.render(
   <ApolloProvider client={client}>
     <StrictMode>
-      <App />
+      <BrowserRouter>
+        <App />
+      </BrowserRouter>
     </StrictMode>
   </ApolloProvider>,
   document.getElementById('app'),
