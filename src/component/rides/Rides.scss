@@ -1,0 +1,43 @@
+@import '../commons/common.scss';
+
+.rides-container {
+  justify-content: center;
+  margin-top: 5.2rem;
+  .rides-sub {
+    height: 150px;
+    padding: 5px;
+    box-shadow: $box-shadow;
+    margin: 1.5rem;
+    .rides {
+      .image {
+        height: 100%;
+        img {
+          width: 100%;
+          height: 140px;
+          object-fit: cover;
+          transition: all 0.5s;
+        }
+      }
+      .details {
+        padding: 0 10px;
+        .info {
+          font-weight: bold;
+          line-height: 1.4rem;
+        }
+        button {
+          color: $white;
+          font-size: 0.9rem;
+          padding: 10px 20px;
+          margin-top: 5px;
+          border-radius: 5px;
+          background-color: $gray;
+          cursor: pointer;
+          transition: 2ms;
+          &:hover {
+            box-shadow: $box-shadow;
+          }
+        }
+      }
+    }
+  }
+}

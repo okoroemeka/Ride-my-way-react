@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
+import { withRouter, Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import gql from 'graphql-tag';
 import { Mutation } from 'react-apollo';
@@ -28,12 +28,14 @@ class Signin extends Component {
   };
 
   handleSubmit = async (e, signIn) => {
+    const { history } = this.props;
     e.preventDefault();
     await signIn();
     this.setState({
       email: '',
       password: '',
     });
+    history.push('/ride-offer');
   };
 
   render() {
@@ -86,5 +88,6 @@ class Signin extends Component {
 
 Signin.propTypes = {
   click: PropTypes.func.isRequired,
+  history: PropTypes.arrayOf.isRequired,
 };
-export default Signin;
+export default withRouter(Signin);

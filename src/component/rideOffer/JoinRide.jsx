@@ -5,12 +5,13 @@ import PropTypes from 'prop-types';
 import gql from 'graphql-tag';
 import Error from '../commons/Error';
 
-const JOIN_RIDE = gql`
+export const JOIN_RIDE = gql`
   mutation JOIN_RIDE($currentLocation: String!, $destination: String!) {
     getSomeRides(currentLocation: $currentLocation, destination: $destination) {
       carImage
       currentLocation
       destination
+      carType
       departure
     }
   }
@@ -32,11 +33,12 @@ class JoinRide extends Component {
     const { history } = this.props;
     e.preventDefault();
     await joinRide();
+    sessionStorage.setItem('ridesParams', JSON.stringify(this.state));
     this.setState({
       currentLocation: '',
       destination: '',
     });
-    history.push('/');
+    history.push('/request');
   };
 
   render() {
