@@ -79,7 +79,7 @@ class CreateRide extends Component {
       image: '',
       plateNumber: '',
     });
-    history.push('/request');
+    history.push('/dashboard');
   };
 
   render() {

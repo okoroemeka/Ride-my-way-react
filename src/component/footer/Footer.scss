@@ -1,11 +1,10 @@
 @import '../commons/common.scss';
 .footer-container {
-  padding: 0px;
+  padding: 0px !important;
   .footer {
     height: 80px;
-    padding: 0 5px;
+    padding: 10px 5px;
     color: $white;
     background-color: $black;
-    margin-top: 5%;
   }
 }

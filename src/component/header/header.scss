@@ -6,6 +6,10 @@
   background-color: $black;
   .header-name {
     padding-left: 10px;
+    .home-nav {
+      color: $white;
+      text-decoration: none;
+    }
   }
   .pages {
     text-align: right;
