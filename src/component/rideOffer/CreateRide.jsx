@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { withRouter, Link } from 'react-router-dom';
+import { toast } from 'react-toastify';
 import { Mutation } from 'react-apollo';
 import PropTypes from 'prop-types';
 import gql from 'graphql-tag';
@@ -69,6 +70,7 @@ class CreateRide extends Component {
     const { history } = this.props;
     e.preventDefault();
     await createRide();
+    toast.success('Ride created successfully.');
     this.setState({
       currentLocation: '',
       destination: '',

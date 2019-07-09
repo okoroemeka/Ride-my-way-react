@@ -8,6 +8,7 @@ import Error from '../commons/Error';
 export const JOIN_RIDE = gql`
   mutation JOIN_RIDE($currentLocation: String!, $destination: String!) {
     getSomeRides(currentLocation: $currentLocation, destination: $destination) {
+      id
       carImage
       currentLocation
       destination

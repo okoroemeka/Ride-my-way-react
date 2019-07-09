@@ -1,14 +1,17 @@
 import React, { Component, Fragment } from 'react';
+import { withRouter } from 'react-router-dom';
+import { toast } from 'react-toastify';
+import PropTypes from 'prop-types';
 // eslint-disable-next-line import/no-cycle
-import getRides from '../../utils/queryHelpers';
+import { getRides, joinRides } from '../../utils/queryHelpers';
 import RideCard from './RideCard';
-import JoinRideForm from './JoinRideForm';
 import './Rides.scss';
 
 class Rides extends Component {
   state = {
     rides: [],
-    error: '',
+    message: '',
+    error: [],
     isJoinRide: false,
   };
 
@@ -28,12 +31,23 @@ class Rides extends Component {
     }));
   }
 
-  toggleJoinRideForm = () => {
-    const { isJoinRide } = this.state;
-    this.setState(prevState => ({
-      ...prevState,
-      isJoinRide: !isJoinRide,
-    }));
+  handleJoinRide = async (rideId) => {
+    try {
+      const {
+        data: {
+          rideRequest: { text },
+        },
+      } = await joinRides(rideId);
+      const { history } = this.props;
+      sessionStorage.removeItem('ridesParams');
+      toast.success(text);
+      return history.push('/dashboard');
+    } catch (error) {
+      const { error: stateError } = this.state;
+      return this.setState({
+        error: [...stateError, error.message],
+      });
+    }
   };
 
   renderRides = (rides) => {
@@ -41,14 +55,16 @@ class Rides extends Component {
       <div />
     ) : (
       rides.map(({
-        carImage, currentLocation, departure, destination, carType,
+        id, carImage, currentLocation, departure, destination, carType,
       }) => (
         <RideCard
+          rideId={id}
           image={carImage}
           carType={carType}
           location={currentLocation}
           departure={departure}
           destination={destination}
+          joinRide={this.handleJoinRide}
         />
       ))
     );
@@ -56,14 +72,16 @@ class Rides extends Component {
   };
 
   render() {
-    const { rides, isJoinRide } = this.state;
+    const { rides } = this.state;
     return (
       <Fragment>
         <div className="row rides-container">{this.renderRides(rides)}</div>
-        {isJoinRide && <JoinRideForm />}
       </Fragment>
     );
   }
 }
+Rides.propTypes = {
+  history: PropTypes.oneOfType(PropTypes.array).isRequired,
+};
 
-export default Rides;
+export default withRouter(Rides);
