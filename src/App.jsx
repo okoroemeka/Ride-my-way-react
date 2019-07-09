@@ -1,7 +1,9 @@
 /* eslint-disable import/no-cycle */
 import React, { Component, Fragment } from 'react';
 import { Route, Switch, withRouter } from 'react-router-dom';
+import { ToastContainer, Flip } from 'react-toastify';
 import PropTypes from 'prop-types';
+import 'react-toastify/dist/ReactToastify.min.css';
 import Home from './component/home/Home';
 import Header from './component/header/Header';
 import CreateRideOffer from './component/rideOffer/CreateRideOffer';
@@ -33,6 +35,7 @@ class App extends Component {
           </div>
         </div>
         {pathname !== '/' && <Footer />}
+        <ToastContainer transition={Flip} position="bottom-right" autoClose={3000} />
       </Fragment>
     );
   }

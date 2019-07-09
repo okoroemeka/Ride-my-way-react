@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 
 const RideCard = (props) => {
   const {
-    image, carType, departure, destination, location, joinRide,
+    rideId, image, carType, departure, destination, location, joinRide,
   } = props;
   return (
     <div className="col-5 rides-sub">
@@ -28,7 +28,7 @@ const RideCard = (props) => {
             <span className="info">Location: &nbsp;</span>
             {location}
           </div>
-          <button type="submit" onClick={joinRide}>
+          <button type="submit" onClick={() => joinRide(rideId)}>
             Join
           </button>
         </div>
@@ -44,6 +44,7 @@ RideCard.propTypes = {
   destination: PropTypes.string.isRequired,
   location: PropTypes.string.isRequired,
   joinRide: PropTypes.func.isRequired,
+  rideId: PropTypes.number.isRequired,
 };
 
 export default RideCard;

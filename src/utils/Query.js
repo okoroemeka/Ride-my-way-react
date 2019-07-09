@@ -3,6 +3,7 @@ import gql from 'graphql-tag';
 const GET_RIDES = gql`
   query getRides {
     getSomeRides {
+      id
       carImage
       currentLocation
       destination
@@ -10,14 +11,12 @@ const GET_RIDES = gql`
     }
   }
 `;
-const JOIN_RIDES = gql`
-  mutation rideRequest {
-    rideRequest {
-      pickup_location
-      pickup_time
-      rideId
+const RIDE_REQUEST = gql`
+  mutation rideRequest($rideId: Int!) {
+    rideRequest(rideId: $rideId) {
+      text
     }
   }
 `;
 
-export { GET_RIDES, JOIN_RIDES };
+export { GET_RIDES, RIDE_REQUEST };
