@@ -7,6 +7,7 @@ import 'react-toastify/dist/ReactToastify.min.css';
 import Home from './component/home/Home';
 import Header from './component/header/Header';
 import CreateRideOffer from './component/rideOffer/CreateRideOffer';
+import Dashboard from './component/dashboard/Dashboard';
 import Footer from './component/footer/Footer';
 // eslint-disable-next-line import/no-cycle
 import Ride from './component/rides/Ride';
@@ -31,6 +32,7 @@ class App extends Component {
               <Route exact path="/" component={Home} />
               <Route path="/ride-offer" component={CreateRideOffer} />
               <Route path="/request" component={Ride} />
+              <Route path="/dashboard" component={Dashboard} />
             </Switch>
           </div>
         </div>

@@ -18,5 +18,15 @@ const RIDE_REQUEST = gql`
     }
   }
 `;
-
-export { GET_RIDES, RIDE_REQUEST };
+const GET_REQUEST = gql`
+  query getRequestByRideId($rideId: Int!) {
+    getRequestByRideId(rideId: $rideId) {
+      approved
+      user {
+        firstname
+        lastname
+      }
+    }
+  }
+`;
+export { GET_RIDES, RIDE_REQUEST, GET_REQUEST };
