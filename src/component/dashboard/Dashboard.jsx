@@ -5,7 +5,7 @@ import { toast } from 'react-toastify';
 import gql from 'graphql-tag';
 import DashboardCard from './DashboardCard';
 import Requets from './Requets';
-import { getRideRequest } from '../../utils/queryHelpers';
+import { getRideRequest, respondToRideRequest } from '../../utils/queryHelpers';
 import './Dashboard.scss';
 
 const GET_RIDES = gql`
@@ -34,6 +34,12 @@ class Dashboard extends Component {
     });
   };
 
+  handleRideRequest = async (rideId, requestId, approved) => {
+    const response = await respondToRideRequest(rideId, requestId, approved);
+    // const eventValue = e.target.value;
+    console.log(response);
+  };
+
   handleRespondToRideRequest = async (rideId) => {
     const { IsRequest } = this.state;
     const {
@@ -48,9 +54,14 @@ class Dashboard extends Component {
   };
 
   renderRequest = () => {
-    const { request: rideRequest } = this.state;
-    const request = rideRequest.map(({ user: { firstname, lastname } }) => (
-      <Requets passenger={`${firstname} ${lastname}`} />
+    const { request: rideRequest, rideId } = this.state;
+    const request = rideRequest.map(({ id, user: { firstname, lastname } }) => (
+      <Requets
+        passenger={`${firstname} ${lastname}`}
+        requestId={id}
+        rideId={rideId}
+        handleRideRequest={this.handleRideRequest}
+      />
     ));
     const requestsToRender = (
       <div className="row request">

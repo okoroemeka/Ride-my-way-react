@@ -21,6 +21,7 @@ const RIDE_REQUEST = gql`
 const GET_REQUEST = gql`
   query getRequestByRideId($rideId: Int!) {
     getRequestByRideId(rideId: $rideId) {
+      id
       approved
       user {
         firstname
@@ -29,4 +30,13 @@ const GET_REQUEST = gql`
     }
   }
 `;
-export { GET_RIDES, RIDE_REQUEST, GET_REQUEST };
+const RESPOND_TO_REQUEST = gql`
+  mutation respondToRideRequest($rideId: Int!, $requestId: Int!, $approved: Boolean!) {
+    respondToRideRequest(rideId: $rideId, requestId: $requestId, approved: $approved) {
+      text
+    }
+  }
+`;
+export {
+  GET_RIDES, RIDE_REQUEST, GET_REQUEST, RESPOND_TO_REQUEST,
+};
