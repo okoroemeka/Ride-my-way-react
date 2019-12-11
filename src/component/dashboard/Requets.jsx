@@ -2,9 +2,9 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 const Requests = ({
-  passenger, requestId, handleRideRequst, toggltModal,
+  passenger, rideId, requestId, handleRideRequest,
 }) => (
-  <div className="col-4 card" onBlur={toggltModal}>
+  <div className="col-4 card">
     <div>
       <span className="info">passenger: &nbsp;</span>
       {passenger}
@@ -13,14 +13,14 @@ const Requests = ({
       <button
         className="buttons-accept"
         type="submit"
-        onClick={() => handleRideRequst(requestId, 'accept')}
+        onClick={() => handleRideRequest(rideId, requestId, true)}
       >
         accept
       </button>
       <button
         className="buttons-reject"
         type="submit"
-        onClick={() => handleRideRequst(requestId, 'reject')}
+        onClick={() => handleRideRequest(rideId, requestId, false)}
       >
         reject
       </button>
@@ -31,7 +31,7 @@ const Requests = ({
 Requests.propTypes = {
   passenger: PropTypes.string.isRequired,
   requestId: PropTypes.number.isRequired,
-  handleRideRequst: PropTypes.func.isRequired,
-  toggltModal: PropTypes.func.isRequired,
+  rideId: PropTypes.number.isRequired,
+  handleRideRequest: PropTypes.func.isRequired,
 };
 export default Requests;

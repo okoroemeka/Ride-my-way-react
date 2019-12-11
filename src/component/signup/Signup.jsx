@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, withRouter } from 'react-router-dom';
 import { Mutation } from 'react-apollo';
 import PropTypes from 'prop-types';
 import gql from 'graphql-tag';
@@ -56,26 +56,36 @@ class Signup extends Component {
       confirmPassword: '',
       phone: '',
     });
+    const { history } = this.props;
+    return history.push('/dashboard');
   };
 
   render() {
     const {
-      firstname, email, password, confirmPassword, lastname, phone,
+      firstname,
+      email,
+      password,
+      confirmPassword,
+      lastname,
+      phone,
     } = this.state;
     const { click } = this.props;
     return (
       <Mutation
         mutation={SIGNUP_MUTATION}
-        variables={{ ...this.state, phone: parseInt(phone, 10) }}
+        variables={{ ...this.state, phone: Number(phone) }}
       >
         {(createUser, { loading, error }) => (
           <div className="signup">
-            <form method="post" onSubmit={e => this.handleSubmit(e, createUser)}>
+            <form
+              method="post"
+              onSubmit={e => this.handleSubmit(e, createUser)}
+            >
               <h4>Signup</h4>
               {error && <Error error={error.message} />}
               <fieldset disabled={loading}>
                 <label htmlFor="firstname">
-                  Fisrtname
+                  Firstname
                   <input
                     type="text"
                     name="firstname"
@@ -137,7 +147,7 @@ class Signup extends Component {
                 <button type="submit">Signup</button>
                 <h6>
                   Already have an account?
-                  {' '}
+{' '}
                   <Link to="/signin" onClick={click}>
                     Login
                   </Link>
@@ -152,6 +162,7 @@ class Signup extends Component {
 }
 Signup.propTypes = {
   click: PropTypes.func.isRequired,
+  history: PropTypes.func.isRequired,
 };
 
-export default Signup;
+export default withRouter(Signup);
