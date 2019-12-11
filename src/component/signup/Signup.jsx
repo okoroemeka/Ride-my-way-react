@@ -11,7 +11,7 @@ const SIGNUP_MUTATION = gql`
     $firstname: String!
     $lastname: String!
     $email: String!
-    $phone: Int!
+    $phone: String!
     $password: String!
     $confirmPassword: String!
   ) {
@@ -30,17 +30,17 @@ const SIGNUP_MUTATION = gql`
 `;
 class Signup extends Component {
   state = {
-    firstname: '',
-    lastname: '',
+    firstName: '',
+    lastName: '',
     email: '',
     password: '',
     confirmPassword: '',
-    phone: '',
+    phone: ''
   };
 
-  onInputChange = (event) => {
+  onInputChange = event => {
     const {
-      target: { name, value },
+      target: { name, value }
     } = event;
     this.setState({ [name]: value });
   };
@@ -49,12 +49,12 @@ class Signup extends Component {
     e.preventDefault();
     await signup();
     this.setState({
-      firstname: '',
-      lastname: '',
+      firstName: '',
+      lastName: '',
       email: '',
       password: '',
       confirmPassword: '',
-      phone: '',
+      phone: ''
     });
     const { history } = this.props;
     return history.push('/dashboard');
@@ -62,18 +62,23 @@ class Signup extends Component {
 
   render() {
     const {
-      firstname,
+      firstName,
       email,
       password,
       confirmPassword,
-      lastname,
-      phone,
+      lastName,
+      phone
     } = this.state;
     const { click } = this.props;
     return (
       <Mutation
         mutation={SIGNUP_MUTATION}
-        variables={{ ...this.state, phone: Number(phone) }}
+        variables={{
+          ...this.state,
+          firstname: firstName,
+          lastname: lastName,
+          phone: String(phone)
+        }}
       >
         {(createUser, { loading, error }) => (
           <div className="signup">
@@ -85,21 +90,21 @@ class Signup extends Component {
               {error && <Error error={error.message} />}
               <fieldset disabled={loading}>
                 <label htmlFor="firstname">
-                  Firstname
+                  First name
                   <input
                     type="text"
-                    name="firstname"
-                    value={firstname}
+                    name="firstName"
+                    value={firstName}
                     placeholder="enter your firstname"
                     onChange={this.onInputChange}
                   />
                 </label>
                 <label htmlFor="lastname">
-                  Lastname
+                  Last name
                   <input
                     type="text"
-                    name="lastname"
-                    value={lastname}
+                    name="lastName"
+                    value={lastName}
                     placeholder="enter your lastname"
                     onChange={this.onInputChange}
                   />
@@ -107,7 +112,7 @@ class Signup extends Component {
                 <label htmlFor="lastname">
                   Phone
                   <input
-                    type="number"
+                    type="tel"
                     name="phone"
                     value={phone}
                     placeholder="enter your phone number"
@@ -146,8 +151,7 @@ class Signup extends Component {
                 </label>
                 <button type="submit">Signup</button>
                 <h6>
-                  Already have an account?
-{' '}
+                  Already have an account?{' '}
                   <Link to="/signin" onClick={click}>
                     Login
                   </Link>
@@ -162,7 +166,7 @@ class Signup extends Component {
 }
 Signup.propTypes = {
   click: PropTypes.func.isRequired,
-  history: PropTypes.func.isRequired,
+  history: PropTypes.func.isRequired
 };
 
 export default withRouter(Signup);
