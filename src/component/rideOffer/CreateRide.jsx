@@ -102,14 +102,17 @@ class CreateRide extends Component {
         variables={{ ...this.state, capacity: parseInt(capacity, 10) }}
       >
         {(createRide, { loading, error }) => (
-          <div className="col-6 create-ride-container">
+          <div className="col-5 create-ride-container">
             <div className="create-ride">
-              <form method="post" onSubmit={e => this.handleSubmit(e, createRide)}>
+              <form
+                method="post"
+                onSubmit={e => this.handleSubmit(e, createRide)}
+              >
                 <h4>Offer Ride</h4>
                 {error && <Error error={error.message} />}
                 <fieldset disabled={loading}>
                   <label htmlFor="car-image">
-                    Car Image
+                    car image
                     <input
                       type="file"
                       id="file"
@@ -121,7 +124,7 @@ class CreateRide extends Component {
                   </label>
                   {image && <img src={image} alt={carType} />}
                   <label htmlFor="currentLocation">
-                    Current Location
+                    current location
                     <input
                       type="text"
                       name="currentLocation"
@@ -138,6 +141,7 @@ class CreateRide extends Component {
                       value={destination}
                       placeholder="enter destination"
                       onChange={this.onInputChange}
+                      autoComplete="off"
                     />
                   </label>
                   <label htmlFor="capacity">
@@ -151,7 +155,7 @@ class CreateRide extends Component {
                     />
                   </label>
                   <label htmlFor="carType">
-                    Car Type
+                    car type
                     <input
                       type="text"
                       name="carType"
@@ -161,7 +165,7 @@ class CreateRide extends Component {
                     />
                   </label>
                   <label htmlFor="carColor">
-                    Car Color
+                    car color
                     <input
                       type="text"
                       name="carColor"
@@ -171,9 +175,10 @@ class CreateRide extends Component {
                     />
                   </label>
                   <label htmlFor="departure">
-                    departure
+                    departure time
                     <input
-                      type="text"
+                      className="departure__time"
+                      type="time"
                       name="departure"
                       value={departure}
                       placeholder="enter departure time"
@@ -181,7 +186,7 @@ class CreateRide extends Component {
                     />
                   </label>
                   <label htmlFor="plateNumber">
-                    plateNumber
+                    car number
                     <input
                       type="text"
                       name="plateNumber"
@@ -193,7 +198,7 @@ class CreateRide extends Component {
                   <button type="submit">Create Ride</button>
                   <h5>
                     Want to catch a ride?
-                    {' '}
+{' '}
                     <Link to=" " onClick={toggleForm}>
                       Join
                     </Link>

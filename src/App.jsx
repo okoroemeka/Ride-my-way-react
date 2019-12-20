@@ -8,6 +8,7 @@ import Home from './component/home/Home';
 import Header from './component/header/Header';
 import CreateRideOffer from './component/rideOffer/CreateRideOffer';
 import Dashboard from './component/dashboard/Dashboard';
+import DashboardV2 from './component/dashboardv2';
 import Footer from './component/footer/Footer';
 // eslint-disable-next-line import/no-cycle
 import Ride from './component/rides/Ride';
@@ -32,12 +33,16 @@ class App extends Component {
               <Route exact path="/" component={Home} />
               <Route path="/ride-offer" component={CreateRideOffer} />
               <Route path="/request" component={Ride} />
-              <Route path="/dashboard" component={Dashboard} />
+              <Route path="/dashboard" component={DashboardV2} />
             </Switch>
           </div>
         </div>
         {pathname !== '/' && <Footer />}
-        <ToastContainer transition={Flip} position="bottom-right" autoClose={3000} />
+        <ToastContainer
+          transition={Flip}
+          position="bottom-right"
+          autoClose={3000}
+        />
       </Fragment>
     );
   }

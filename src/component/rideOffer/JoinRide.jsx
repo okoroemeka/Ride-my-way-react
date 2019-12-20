@@ -47,11 +47,17 @@ class JoinRide extends Component {
     const { toggleForm } = this.props;
     return (
       <Fragment>
-        <Mutation mutation={JOIN_RIDE} variables={{ destination, currentLocation }}>
+        <Mutation
+          mutation={JOIN_RIDE}
+          variables={{ destination, currentLocation }}
+        >
           {(getSomeRides, { loading, error }) => (
-            <div className="col-6 join-ride-container">
+            <div className="col-5 join-ride-container">
               <div className="join-ride">
-                <form method="post" onSubmit={e => this.handleJoinRide(e, getSomeRides)}>
+                <form
+                  method="post"
+                  onSubmit={e => this.handleJoinRide(e, getSomeRides)}
+                >
                   <h4>Join Ride</h4>
                   {error && <Error error={error.message} />}
                   <fieldset disabled={loading}>
@@ -78,7 +84,7 @@ class JoinRide extends Component {
                     <button type="submit">Join Ride</button>
                     <h5>
                       Want to create a ride?
-                      {' '}
+{' '}
                       <Link to=" " onClick={toggleForm}>
                         Create
                       </Link>

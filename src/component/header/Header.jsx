@@ -6,7 +6,7 @@ const Header = () => (
   <div className="row header-container">
     <div className="col-2 header-name">
       <NavLink to="/" className="home-nav">
-        <h3>Ride-with-me</h3>
+        <h3>Move</h3>
       </NavLink>
     </div>
     <div className="col-10 pages">
