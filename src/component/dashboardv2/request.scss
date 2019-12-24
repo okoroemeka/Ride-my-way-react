@@ -1,0 +1,41 @@
+@import '../commons/common.scss';
+.request__card__container{
+  padding: 0 1rem;
+  .request__card{
+    height: auto;
+    box-shadow: $box-shadow;
+    padding: 0.8rem;
+    line-height: 1;
+    border-radius: 5px;
+    p .text__container{
+      line-height: 0;
+    }
+    .icon__images{
+      width: 1rem;
+    }
+    .accept__ride,
+    .decline__ride{
+      font-size: 0.9rem;
+      padding: 0.7rem 1rem;
+      color: $white;
+      border: none;
+      border-radius: 3px;
+      transition: 5ms;
+    }
+    .accept__ride{
+      background-color: $create-ride;
+      margin-right: 0.3rem;
+      &:hover{
+        cursor: pointer;
+        background-color: $create-ride-hover;
+      }
+    }
+    .decline__ride{
+      background-color: $black;
+      &:hover{
+        cursor: pointer;
+        background-color: $black-hover;
+      }
+    }
+  }
+}
