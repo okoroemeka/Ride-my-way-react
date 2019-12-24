@@ -6,13 +6,13 @@
     background-color: $black;
     .side__bar {
       width: 100%;
-
-      .create__ride,
-      .join__ride {
+      .create__ride__button,
+      .ride__requests,
+      .join__ride__button {
         color: $white;
         font-size: 0.9rem;
         display: block;
-        width: 6.5rem;
+        width: 8.5rem;
         padding: 0.8rem 0;
         border: none;
         border-radius: 3px;
@@ -21,23 +21,34 @@
         outline: none;
         cursor: pointer;
       }
-      .create__ride {
+      .create__ride__button {
         background-color: $create-ride;
         &:hover {
           background-color: $create-ride-hover;
         }
       }
-      .join__ride {
+      .join__ride__button {
         background-color: $gray;
         &:hover {
           background-color: $join-ride-hover;
         }
       }
+      .ride__requests{
+        color: $black;
+      }
+    }
+  }
+  .main__area__coantainer {
+    display: flex;
+    justify-content: center;
+    margin-top: 1.4rem;
+    .ride__form {
+      width: 60%;
     }
   }
   .display__rides__container {
     height: $side-bar-height;
-    background-color: gray;
+    background-color: $gray;
     .display__riders__card {
       padding: 0.6rem;
       width: 100%;
@@ -45,7 +56,8 @@
       .card__container {
         display: flex;
         width: 100%;
-        height: 150px;
+        height: auto;
+        padding: 10px 0;
         background-color: $white;
         box-shadow: $box-shadow;
         align-items: center;
@@ -55,14 +67,14 @@
           width: 40%;
           height: 100%;
           display: flex;
-          .image__container{
+          .image__container {
             width: 90px;
             height: 90px;
-            background-color: black;
+            background-color: $black;
             margin: auto;
             border-radius: 50%;
             overflow: hidden;
-            .image{
+            .image {
               width: 100%;
               height: 100%;
             }
@@ -70,8 +82,24 @@
         }
         .details__area {
           width: 70%;
-          .details{
+          .details {
             font-weight: 700;
+            img{
+              width: 1rem;
+            }
+          }
+          .join__ride {
+            font-size: 0.9rem;
+            color: $white;
+            padding: 0.7rem 2rem;
+            border: none;
+            background-color: $create-ride;
+            margin: 0.7rem 0;
+            border-radius: 5px;
+            &:hover {
+              cursor: pointer;
+              background-color: $create-ride-hover;
+            }
           }
         }
       }
