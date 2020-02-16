@@ -2,15 +2,15 @@ import React, { useEffect, useState } from 'react';
 import Button from '../reusables/button';
 import './ride.scss';
 
-const JoinRide = () => {
+const JoinRide = (props) => {
   const [pickupLocation, updateLocation] = useState('');
   const [destination, updateDestination] = useState('');
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = async e => {
     e.preventDefault();
     const data = {
       pickupLocation,
-      destination,
+      destination
     };
   };
   return (
@@ -18,7 +18,7 @@ const JoinRide = () => {
       <h3>Find a ride </h3>
       <fieldset>
         <label htmlFor="destination">
-          destination
+          Destination
           <input
             type="text"
             name="destination"

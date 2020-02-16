@@ -1,7 +1,7 @@
 import React, { StrictMode } from 'react';
 import { BrowserRouter } from 'react-router-dom';
-import { ApolloProvider } from 'react-apollo';
-// import dotenv from 'dotenv';
+// import { ApolloProvider } from 'react-apollo';
+import { ApolloProvider } from '@apollo/react-hooks';
 import { ApolloClient } from 'apollo-client';
 import { InMemoryCache } from 'apollo-cache-inmemory';
 import { HttpLink } from 'apollo-link-http';
@@ -9,18 +9,16 @@ import ReactDOM from 'react-dom';
 // eslint-disable-next-line import/no-cycle
 import App from './App';
 
-// dotenv.config();
-
 const cache = new InMemoryCache();
 const link = new HttpLink({
-  uri: 'http://localhost:4000/',
-  credentials: 'include',
+  uri: 'http://localhost:5030/graphql',
+  credentials: 'include'
 });
 
 // eslint-disable-next-line import/prefer-default-export
 export const client = new ApolloClient({
   cache,
-  link,
+  link
 });
 
 ReactDOM.render(
@@ -31,5 +29,5 @@ ReactDOM.render(
       </BrowserRouter>
     </StrictMode>
   </ApolloProvider>,
-  document.getElementById('app'),
+  document.getElementById('app')
 );

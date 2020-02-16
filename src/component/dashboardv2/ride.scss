@@ -23,9 +23,18 @@ form {
         border-color: $gray;
       }
     }
-    input[type="time"]{
+    input[type='time'] {
       font-size: 1.2rem;
     }
+  }
+  .departure__time {
+    width: 75%;
+    margin-right: 0.3rem;
+  }
+  .time__of__day {
+    color: $create-ride;
+    width: 20%;
+    height: 2.5rem;
   }
   button {
     color: $white;
