@@ -1,114 +1,187 @@
-import React, { useEffect, useState } from 'react';
+import React, { useReducer, useCallback, useState } from 'react';
+import { Link } from 'react-router-dom';
+import { toast } from 'react-toastify';
+import { useMutation } from '@apollo/react-hooks';
+import gql from 'graphql-tag';
 import Button from '../reusables/button';
 import './ride.scss';
-// import { Link } from 'react-router-dom';
 
+const FORM_ACTION = 'FORM_ACTION';
+const CLEAR_FORM = 'CLEAR_FORM';
+
+const formRducer = (state, action) => {
+  switch (action.type) {
+    case FORM_ACTION:
+      return {
+        ...state,
+        [action.inputName]: action.inputValue,
+      };
+    case CLEAR_FORM:
+      return {
+        pickup: '',
+        destination: '',
+        capacity: 0,
+        carType: '',
+        carColor: '',
+        departure: '',
+        timeOfDay: 'AM',
+        plateNumber: '',
+      };
+    default:
+      return state;
+  }
+};
+const CREATE_RIDE = gql`
+  mutation createRide($input: NewRideInput!) {
+    createRide(input: $input) {
+      userId
+      carType
+      capacity
+      carColor
+      id
+    }
+  }
+`;
 const CreateRide = () => {
-  const [pickupLocation, updateLocation] = useState('');
-  const [destination, updateDestination] = useState('');
-  const [capacity, updateCapacity] = useState(0);
-  const [carType, updateCarType] = useState('');
-  const [carColor, updateCarColor] = useState('');
-  const [departure, updateDeparture] = useState('');
-  const [plateNumber, updatePlateNumber] = useState('');
+  const [formState, dispatchFormState] = useReducer(formRducer, {
+    pickup: '',
+    destination: '',
+    capacity: 0,
+    carType: '',
+    carColor: '',
+    departure: '',
+    timeOfDay: 'AM',
+    plateNumber: '',
+  });
+  const [loading, setLoading] = useState(false);
+  const [createRide] = useMutation(CREATE_RIDE);
   // const [toggleState, onToggle] = useState(false);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    // await createRide();
-    // toast.success('Ride created successfully.');
-    const data = {
-      pickupLocation,
-      destination,
-      capacity,
-      carColor,
-      carType,
-      departure,
-      plateNumber,
+    const formData = {
+      ...formState,
+      capacity: Number(formState.capacity),
+      departure: `${formState.departure}${formState.timeOfDay}`,
     };
-    // history.push('/dashboard');
+    delete formData.timeOfDay;
+    setLoading(true);
+    const res = await createRide({ variables: { input: formData } });
+    console.log('res', res);
+    setLoading(false);
+    dispatchFormState({ type: CLEAR_FORM });
+    toast.success('Ride created successfully.');
   };
+  const handleChange = useCallback(
+    (e) => {
+      const { value, name } = e.target;
+      dispatchFormState({
+        type: FORM_ACTION,
+        inputName: name,
+        inputValue: value,
+      });
+    },
+    [dispatchFormState],
+  );
+
   return (
     <form onSubmit={handleSubmit}>
       <h3>Create ride</h3>
-      <fieldset>
+      <fieldset disabled={loading}>
         <label htmlFor="currentLocation">
-          pickup location
+          Pickup Location
           <input
             type="text"
-            name="currentLocation"
-            value={pickupLocation}
-            placeholder="enter your current location"
-            onChange={e => updateLocation(e.target.value)}
+            name="pickup"
+            value={formState.pickupLocation}
+            placeholder="enter pickup location"
+            onChange={handleChange}
+            required
           />
         </label>
         <label htmlFor="destination">
-          destination
+          Destination
           <input
             type="text"
             name="destination"
-            value={destination}
+            value={formState.destination}
             placeholder="enter destination"
-            onChange={e => updateDestination(e.target.value)}
+            onChange={handleChange}
             autoComplete="off"
+            required
           />
         </label>
         <label htmlFor="capacity">
-          capacity
+          Capacity
           <input
             type="number"
             name="capacity"
-            value={capacity}
+            value={formState.capacity}
             placeholder="enter car capacity"
-            onChange={e => updateCapacity(e.target.value)}
+            onChange={handleChange}
+            required
+            min="1"
           />
         </label>
         <label htmlFor="carType">
-          car type
+          Car type
           <input
             type="text"
             name="carType"
-            value={carType}
+            value={formState.carType}
             placeholder="enter car Type"
-            onChange={e => updateCarType(e.target.value)}
+            onChange={handleChange}
+            required
           />
         </label>
         <label htmlFor="carColor">
-          car color
+          Car color
           <input
             type="text"
             name="carColor"
-            value={carColor}
+            value={formState.carColor}
             placeholder="enter car color"
-            onChange={e => updateCarColor(e.target.value)}
+            onChange={handleChange}
+            required
           />
         </label>
         <label htmlFor="departure">
-          departure time
+          Departure time
           <input
             className="departure__time"
             type="time"
             name="departure"
-            value={departure}
+            value={formState.departure}
             placeholder="enter departure time"
-            onChange={e => updateDeparture(e.target.value)}
+            onChange={handleChange}
+            required
           />
+          <select
+            name="timeOfDay"
+            value={formState.timeOfDay}
+            onChange={handleChange}
+            className="time__of__day"
+          >
+            <option value="AM">AM</option>
+            <option value="PM">PM</option>
+          </select>
         </label>
         <label htmlFor="plateNumber">
-          plate number
+          Plate number
           <input
             type="text"
             name="plateNumber"
-            value={plateNumber}
+            value={formState.plateNumber}
             placeholder="enter car plate number"
-            onChange={e => updatePlateNumber(e.target.value)}
+            onChange={handleChange}
+            required
           />
         </label>
         <Button
           type="submit"
-          handleClick={handleSubmit}
           buttonText="Create"
           buttonClassName="create__ride"
+          disabled={loading}
         />
       </fieldset>
     </form>

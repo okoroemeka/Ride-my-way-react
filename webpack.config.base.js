@@ -5,17 +5,20 @@ module.exports = {
   entry: './src/index.jsx',
   output: {
     path: path.join(__dirname, 'dist'),
-    filename: 'app.bundle.js',
+    filename: 'app.bundle.js'
   },
   resolve: {
-    extensions: ['.jsx', '.js'],
+    extensions: ['.jsx', '.js']
   },
+  // node: {
+  //   fs: 'empty'
+  // },
   module: {
     rules: [
       {
         test: /\.js?$|.jsx?$/,
         loader: 'babel-loader',
-        exclude: /node_modules/,
+        exclude: /node_modules/
       },
       {
         test: /\.scss?$|.css?$/,
@@ -24,26 +27,26 @@ module.exports = {
           {
             loader: 'css-loader',
             options: {
-              sourceMap: true,
-            },
+              sourceMap: true
+            }
           },
           {
             loader: 'sass-loader',
             options: {
-              sourceMap: true,
-            },
-          },
-        ],
+              sourceMap: true
+            }
+          }
+        ]
       },
       {
         test: /\.(png|jpg|jpeg|gif|svg|ico)$/,
-        use: 'file-loader?name=[name].[ext]',
-      },
-    ],
+        use: 'file-loader?name=[name].[ext]'
+      }
+    ]
   },
   plugins: [
     new HtmlWebpackPlugin({
-      template: './src/index.html',
-    }),
-  ],
+      template: './src/index.html'
+    })
+  ]
 };

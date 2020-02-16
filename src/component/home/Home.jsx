@@ -21,7 +21,7 @@ class Home extends Component {
         <div className="col-6" id="banner">
           <div className="overlay">
             <h1>Hail a ride</h1>
-            <h3>Join our community of car pool to offer or create a ride</h3>
+            <h3>Join our community of car pool to offer or give a ride</h3>
           </div>
         </div>
         <div className="col-6 auth-area">
