@@ -1,5 +1,7 @@
+/* eslint-disable import/no-cycle */
 /* eslint-disable no-nested-ternary */
 import React, { Component } from 'react';
+import { toast } from 'react-toastify';
 import Sidebar from './Sidebar';
 import Button from '../reusables/button';
 import RidersWrapper from './Riders';
@@ -7,6 +9,7 @@ import RidersCard from './RidersCard';
 import CreateRide from './CreateRide';
 import JoinRide from './JoinRide';
 import RequestCard from './RequestCard';
+import { joinRides } from '../../utils/queryHelpers';
 import './dashboardv2.scss';
 
 class Dashbaordv2 extends Component {
@@ -14,6 +17,18 @@ class Dashbaordv2 extends Component {
     displayJoinRideForm: true,
     displayCreateRideForm: false,
     displayRideRequest: false,
+    availableRide: [
+      {
+        image: 'https://via.placeholder.com/150',
+        user: { firstname: 'emeka', lastname: 'okoro', phone: `${982000009}` },
+        destination: 'isLand',
+        carColor: 'Yellow',
+        carType: 'Toyota camry',
+        location: 'Ojota',
+      },
+    ],
+    isJoinRideLoading: false,
+    // joinRideError: '',
   };
 
   toggleJoinRideForm = () => {
@@ -40,6 +55,22 @@ class Dashbaordv2 extends Component {
     });
   };
 
+  joinRideHandler = async (rideId) => {
+    try {
+      this.setState(prevState => ({ isJoinRideLoading: !prevState.isJoinRideLoading }));
+      await joinRides(rideId);
+      this.setState(prevState => ({ isJoinRideLoading: !prevState.isJoinRideLoading }));
+    } catch (error) {
+      toast.error(error.message.split(':')[1]);
+    }
+  };
+
+  updateAvailableRide = (data) => {
+    this.setState({
+      availableRide: data,
+    });
+  };
+
   renderRideComponents = (
     displayJoinRideForm,
     displayCreateRideForm,
@@ -60,6 +91,8 @@ class Dashbaordv2 extends Component {
       displayJoinRideForm,
       displayCreateRideForm,
       displayRideRequest,
+      availableRide,
+      isJoinRideLoading,
     } = this.state;
     return (
       <>
@@ -90,7 +123,7 @@ class Dashbaordv2 extends Component {
             {!displayRideRequest ? (
               <div className="ride__form">
                 {displayJoinRideForm && !displayCreateRideForm ? (
-                  <JoinRide />
+                  <JoinRide getRides={this.updateAvailableRide} />
                 ) : (
                   <CreateRide />
                 )}
@@ -104,24 +137,9 @@ class Dashbaordv2 extends Component {
           </div>
           <div className="col-3 display__rides__container">
             <RidersWrapper>
-              <RidersCard
-                image="https://via.placeholder.com/150"
-                name="emeka okoro"
-                phone={`${982000009}`}
-                destination="isLand"
-                carColor="Yellow"
-                carType="Toyota camry"
-                location="Ojota"
-              />
-              <RidersCard
-                image="https://via.placeholder.com/150"
-                name="emeka okoro"
-                phone={`${982000009}`}
-                destination="isLand"
-                carColor="Yellow"
-                carType="Toyota camry"
-                location="Ojota"
-              />
+              {availableRide.map(data => (
+                <RidersCard {...data} handleClick={this.joinRideHandler} loading={isJoinRideLoading} />
+              ))}
             </RidersWrapper>
           </div>
         </div>

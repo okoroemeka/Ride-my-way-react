@@ -1,17 +1,18 @@
 // eslint-disable-next-line import/no-cycle
 import { client as clientApollo } from '../index';
 // eslint-disable-next-line import/no-cycle
-import { JOIN_RIDE } from '../component/rideOffer/JoinRide';
-import { RIDE_REQUEST, GET_REQUEST, RESPOND_TO_REQUEST } from './Query';
+import { GET_REQUEST, RESPOND_TO_REQUEST, JOIN_RIDES } from './Query';
 
-const getRides = async ({ currentLocation, destination }, client = clientApollo) => {
-  const rides = await client.mutate(
+const getRides = async (query, { pickup, destination }, client = clientApollo) => {
+  const rides = await client.query(
     {
-      mutation: JOIN_RIDE,
-      name: 'getSomeRides',
+      query,
+      name: 'getRides',
       variables: {
-        currentLocation,
-        destination,
+        input: {
+          pickup,
+          destination,
+        },
       },
     },
     true,
@@ -22,10 +23,10 @@ const getRides = async ({ currentLocation, destination }, client = clientApollo)
 const joinRides = async (rideId, client = clientApollo) => {
   const response = await client.mutate(
     {
-      mutation: RIDE_REQUEST,
+      mutation: JOIN_RIDES,
       name: 'rideRequest',
       variables: {
-        rideId,
+        input: { rideId },
       },
     },
     true,
@@ -45,7 +46,12 @@ const getRideRequest = async (rideId, client = clientApollo) => {
   );
   return response;
 };
-const respondToRideRequest = async (rideId, requestId, approved, client = clientApollo) => {
+const respondToRideRequest = async (
+  rideId,
+  requestId,
+  approved,
+  client = clientApollo,
+) => {
   const response = await client.mutate({
     mutation: RESPOND_TO_REQUEST,
     name: 'respondToRideRequest',

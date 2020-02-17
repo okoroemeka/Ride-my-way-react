@@ -7,7 +7,13 @@ import carIcon from '../../assets/images/iconmonstr-car-1.svg';
 import busStandIcon from '../../assets/images/iconmonstr-bus-8.svg';
 
 const Card = ({
-  image, name, phone, location, carType, handleClick,
+  id,
+  image,
+  destination,
+  carType,
+  handleClick,
+  user,
+  loading,
 }) => (
   <div className="card__container">
     <div className="image__area">
@@ -22,14 +28,14 @@ const Card = ({
         </span>
         &nbsp;
         {' '}
-        {name}
+        {`${user.firstname} ${user.lastname}`}
       </div>
       <div>
         <span className="details">
           <img src={phoneIcone} alt="telephone" className="icon__image" />
         </span>
         &nbsp;
-        {phone}
+        {user.phone}
       </div>
       <div>
         <span className="details">
@@ -45,21 +51,23 @@ const Card = ({
         </span>
         &nbsp;
         {' '}
-        {location}
+        {destination}
       </div>
       <Button
         buttonText="join"
         buttonClassName="join__ride"
-        handleClick={handleClick}
+        handleClick={() => handleClick(id)}
+        disabled={loading}
       />
     </div>
   </div>
 );
 Card.propTypes = {
+  id: PropTypes.number.isRequired,
+  loading: PropTypes.bool.isRequired,
   image: PropTypes.string.isRequired,
-  name: PropTypes.string.isRequired,
-  phone: PropTypes.string.isRequired,
-  location: PropTypes.string.isRequired,
+  user: PropTypes.object.isRequired,
+  destination: PropTypes.string.isRequired,
   carType: PropTypes.string.isRequired,
   handleClick: PropTypes.func.isRequired,
 };
