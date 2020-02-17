@@ -1,5 +1,13 @@
 import gql from 'graphql-tag';
 
+const JOIN_RIDES = gql`
+  mutation joinRide($input: joinRideInput!){
+    joinRide(input: $input){
+      id
+      approved
+    }
+  }
+`;
 const GET_RIDES = gql`
   query getRides {
     getSomeRides {
@@ -11,13 +19,13 @@ const GET_RIDES = gql`
     }
   }
 `;
-const RIDE_REQUEST = gql`
-  mutation rideRequest($rideId: Int!) {
-    rideRequest(rideId: $rideId) {
-      text
-    }
-  }
-`;
+// const RIDE_REQUEST = gql`
+//   mutation rideRequest($rideId: Int!) {
+//     rideRequest(rideId: $rideId) {
+//       text
+//     }
+//   }
+// `;
 const GET_REQUEST = gql`
   query getRequestByRideId($rideId: Int!) {
     getRequestByRideId(rideId: $rideId) {
@@ -31,12 +39,18 @@ const GET_REQUEST = gql`
   }
 `;
 const RESPOND_TO_REQUEST = gql`
-  mutation respondToRideRequest($rideId: Int!, $requestId: Int!, $approved: Boolean!) {
-    respondToRideRequest(rideId: $rideId, requestId: $requestId, approved: $approved) {
+  mutation respondToRideRequest(
+    $rideId: Int!
+    $requestId: Int!
+    $approved: Boolean!
+  ) {
+    respondToRideRequest(
+      rideId: $rideId
+      requestId: $requestId
+      approved: $approved
+    ) {
       text
     }
   }
 `;
-export {
-  GET_RIDES, RIDE_REQUEST, GET_REQUEST, RESPOND_TO_REQUEST,
-};
+export { GET_RIDES, GET_REQUEST, RESPOND_TO_REQUEST, JOIN_RIDES };

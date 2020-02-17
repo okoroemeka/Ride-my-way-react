@@ -66,8 +66,7 @@ const CreateRide = () => {
     };
     delete formData.timeOfDay;
     setLoading(true);
-    const res = await createRide({ variables: { input: formData } });
-    console.log('res', res);
+    await createRide({ variables: { input: formData } });
     setLoading(false);
     dispatchFormState({ type: CLEAR_FORM });
     toast.success('Ride created successfully.');
