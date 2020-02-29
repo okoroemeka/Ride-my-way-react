@@ -1,6 +1,5 @@
 import React, { StrictMode } from 'react';
 import { BrowserRouter } from 'react-router-dom';
-// import { ApolloProvider } from 'react-apollo';
 import { ApolloProvider } from '@apollo/react-hooks';
 import { ApolloClient } from 'apollo-client';
 import { InMemoryCache } from 'apollo-cache-inmemory';

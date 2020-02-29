@@ -1,10 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import Button from '../reusables/button';
-import UserImage from '../../assets/images/iconmonstr-user-5.svg';
-import phoneIcone from '../../assets/images/iconmonstr-phone-9.svg';
-import carIcon from '../../assets/images/iconmonstr-car-1.svg';
-import busStandIcon from '../../assets/images/iconmonstr-bus-8.svg';
+import Button from '../../reusables/button';
+import UserImage from '../../../assets/images/iconmonstr-user-5.svg';
+import phoneIcone from '../../../assets/images/iconmonstr-phone-9.svg';
+import carIcon from '../../../assets/images/iconmonstr-car-1.svg';
+import busStandIcon from '../../../assets/images/iconmonstr-bus-8.svg';
 
 const Card = ({
   id,

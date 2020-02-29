@@ -7,7 +7,7 @@ import 'react-toastify/dist/ReactToastify.min.css';
 import Home from './component/home/Home';
 import Header from './component/header/Header';
 import CreateRideOffer from './component/rideOffer/CreateRideOffer';
-import Dashboard from './component/dashboard/Dashboard';
+// import Dashboard from './component/dashboard/Dashboard';
 import DashboardV2 from './component/dashboardv2';
 import Footer from './component/footer/Footer';
 // eslint-disable-next-line import/no-cycle
@@ -36,8 +36,8 @@ class App extends Component {
               <Route path="/dashboard" component={DashboardV2} />
             </Switch>
           </div>
+          {pathname !== '/' && <Footer />}
         </div>
-        {pathname !== '/' && <Footer />}
         <ToastContainer
           transition={Flip}
           position="bottom-right"

@@ -7,9 +7,14 @@ const Button = ({
   buttonText,
   type,
   handleClick,
-  disabled,
+  disabled
 }) => (
-  <button className={buttonClassName} type={type} onClick={handleClick} disabled={disabled}>
+  <button
+    className={buttonClassName}
+    type={type}
+    onClick={handleClick}
+    disabled={disabled}
+  >
     {buttonText}
   </button>
 );
@@ -17,13 +22,13 @@ const Button = ({
 Button.defaultProps = {
   buttonClassName: '',
   handleClick: () => null,
-  disabled: false,
+  disabled: false
 };
 Button.propTypes = {
   buttonText: PropTypes.string.isRequired,
   buttonClassName: PropTypes.string,
   type: PropTypes.string.isRequired,
   handleClick: PropTypes.func,
-  disabled: PropTypes.bool,
+  disabled: PropTypes.bool
 };
 export default Button;

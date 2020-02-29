@@ -2,9 +2,9 @@
 import React, { useEffect, useState } from 'react';
 import gql from 'graphql-tag';
 // import Button from '../reusables/button';
-import useDebounce from '../hooks/Debounce';
-import { getRides } from '../../utils/queryHelpers';
-import Error from '../commons/Error';
+import useDebounce from '../../hooks/Debounce';
+import { getRides } from '../../../utils/queryHelpers';
+import Error from '../../commons/Error';
 import './ride.scss';
 
 const JOINRIDE_RIDE = gql`
