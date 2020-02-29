@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import { useMutation } from '@apollo/react-hooks';
 import gql from 'graphql-tag';
-import Button from '../reusables/button';
+import Button from '../../reusables/button';
 import './ride.scss';
 
 const FORM_ACTION = 'FORM_ACTION';

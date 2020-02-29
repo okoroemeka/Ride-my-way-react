@@ -1,9 +1,10 @@
 @import '../commons/common.scss';
 .main__body {
-  min-height: 9;
+  height: calc(100vh - 160px);
   .side__bar__container {
     height: $side-bar-height;
     background-color: $black;
+    flex-grow: 1;
     .side__bar {
       width: 100%;
       .create__ride__button,
@@ -39,11 +40,15 @@
     }
   }
   .main__area__coantainer {
-    display: flex;
     justify-content: center;
-    margin-top: 1.4rem;
     .ride__form {
-      width: 60%;
+      display: flex;
+      justify-content: center;
+      margin-top: 1rem;
+      width: 100%;
+      form{
+        width: 60%;
+      }
     }
   }
   .display__rides__container {
@@ -104,5 +109,8 @@
         }
       }
     }
+  }
+  .modal__container{
+    height: calc(100vh - 160px);
   }
 }

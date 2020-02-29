@@ -4,12 +4,15 @@ import React, { Component } from 'react';
 import { toast } from 'react-toastify';
 import Sidebar from './Sidebar';
 import Button from '../reusables/button';
-import RidersWrapper from './Riders';
-import RidersCard from './RidersCard';
-import CreateRide from './CreateRide';
-import JoinRide from './JoinRide';
-import RequestCard from './RequestCard';
-import { joinRides } from '../../utils/queryHelpers';
+import RidersWrapper from './ride/Riders';
+import RidersCard from './ride/RidersCard';
+import CreateRide from './ride/CreateRide';
+import JoinRide from './ride/JoinRide';
+import RequestCard from './request/RequestCard';
+import RequestWrapper from './request/RequestWrapper';
+import { joinRides, respondToRideRequest } from '../../utils/queryHelpers';
+import Modal from '../reusables/Modal';
+import Card from '../reusables/Card';
 import './dashboardv2.scss';
 
 class Dashbaordv2 extends Component {
@@ -28,7 +31,14 @@ class Dashbaordv2 extends Component {
       },
     ],
     isJoinRideLoading: false,
-    // joinRideError: '',
+    showWarningModal: false,
+  };
+
+  toggleModal = () => {
+    this.setState(prevState => ({
+      ...prevState,
+      showWarningModal: !prevState.showWarningModal,
+    }));
   };
 
   toggleJoinRideForm = () => {
@@ -55,16 +65,54 @@ class Dashbaordv2 extends Component {
     });
   };
 
+  handleCancelDecline = () => {
+    this.toggleModal();
+  };
+
+  handleDeclineRide = (e, rideId, requestId) => {
+    this.setState({ e, rideId, requestId });
+    this.toggleModal();
+  }
+
+  handleRespondToRequest = async (event, rideId, requestId) => {
+    const { innerText } = event.target;
+    const approved = innerText === 'accept';
+    const { showWarningModal } = this.state;
+
+    try {
+      await respondToRideRequest(rideId, requestId, approved);
+      toast.success(`You successfully ${approved ? 'acceptted' : 'rejected'} this ride.`);
+      if (showWarningModal) {
+        this.toggleModal();
+      }
+    } catch (error) {
+      toast.error('An error occured.');
+    }
+  };
+
+  /**
+   * handle join ride
+   * @param {string}
+   * @returns {null}
+   */
   joinRideHandler = async (rideId) => {
     try {
-      this.setState(prevState => ({ isJoinRideLoading: !prevState.isJoinRideLoading }));
+      this.setState(prevState => ({
+        isJoinRideLoading: !prevState.isJoinRideLoading,
+      }));
       await joinRides(rideId);
-      this.setState(prevState => ({ isJoinRideLoading: !prevState.isJoinRideLoading }));
+      toast.success('joined succesfully');
+      this.setState(prevState => ({
+        isJoinRideLoading: !prevState.isJoinRideLoading,
+      }));
     } catch (error) {
       toast.error(error.message.split(':')[1]);
     }
   };
 
+  /**
+   * update state with available rides
+   */
   updateAvailableRide = (data) => {
     this.setState({
       availableRide: data,
@@ -75,7 +123,6 @@ class Dashbaordv2 extends Component {
     displayJoinRideForm,
     displayCreateRideForm,
     displayRideRequest,
-    ...rest
   ) => {
     if (displayRideRequest) {
       return <span />;
@@ -93,6 +140,8 @@ class Dashbaordv2 extends Component {
       displayRideRequest,
       availableRide,
       isJoinRideLoading,
+      showWarningModal,
+      e: event, rideId, requestId,
     } = this.state;
     return (
       <>
@@ -129,19 +178,66 @@ class Dashbaordv2 extends Component {
                 )}
               </div>
             ) : (
-              <>
-                <RequestCard name="emeka" phone={9087676543} />
-                <RequestCard name="emeka" phone={9087676543} />
-              </>
+              <RequestWrapper>
+                {(data, loading, error) => {
+                  if (error) {
+                    return (
+                      <p>
+                        An error occured while trying to get ride requests,
+                        please try again
+                      </p>
+                    );
+                  }
+                  if (loading) {
+                    return <p>Loading...</p>;
+                  }
+                  const view = !data.length ? (
+                    <h5>There is no ride request yet</h5>
+                  ) : (
+                    data.map(request => (
+                      <RequestCard
+                        id={request.id}
+                        requestData={request}
+                        handleDeclineRide={this.handleDeclineRide}
+                        respondToRequest={this.handleRespondToRequest}
+                      />
+                    ))
+                  );
+                  return view;
+                }}
+              </RequestWrapper>
             )}
           </div>
           <div className="col-3 display__rides__container">
             <RidersWrapper>
               {availableRide.map(data => (
-                <RidersCard {...data} handleClick={this.joinRideHandler} loading={isJoinRideLoading} />
+                <RidersCard
+                  {...data}
+                  handleClick={this.joinRideHandler}
+                  loading={isJoinRideLoading}
+                />
               ))}
             </RidersWrapper>
           </div>
+          {showWarningModal && (
+            <Modal>
+              <Card cardClassName="warningCard">
+                <h3>Decline request?</h3>
+                <Button
+                  buttonClassName="cancel"
+                  type="submit"
+                  buttonText="Cancel"
+                  handleClick={this.toggleModal}
+                />
+                <Button
+                  buttonClassName="decline"
+                  type="submit"
+                  buttonText="Complete"
+                  handleClick={() => this.handleRespondToRequest(event, rideId, requestId)}
+                />
+              </Card>
+            </Modal>
+          )}
         </div>
         <div className="row display__rides" />
       </>

@@ -1,0 +1,41 @@
+@import '../commons/common.scss';
+.modal__container{
+  position: absolute;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  // height: 100vh;
+  z-index: 1;
+  background-color: rgba($color: #000000, $alpha: 0.3);
+  .warningCard{
+    width: 25%;
+    height: 8rem;
+    background-color: white;
+    text-align: center;
+    color: $red;
+    border-radius: 5px;
+    .cancel{
+      background-color: $red;
+      padding: 0.4rem 1.2rem;
+      color: $white;
+      font-size: 1rem;
+      outline: none;
+      border: none;
+      border-radius: 3px;
+      margin: 0 0.3rem;
+      cursor: pointer;
+
+    };
+    .decline{
+      background-color: $gray;
+      font-size: 1rem;
+      outline: none;
+      border: none;
+      border-radius: 3px;
+      padding: 0.4rem 1.2rem;
+      color: $white;
+      cursor: pointer;
+    }
+  }
+}
