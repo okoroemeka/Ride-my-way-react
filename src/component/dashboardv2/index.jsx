@@ -81,7 +81,7 @@ class Dashbaordv2 extends Component {
 
     try {
       await respondToRideRequest(rideId, requestId, approved);
-      toast.success(`You successfully ${approved ? 'acceptted' : 'rejected'} this ride.`);
+      toast.success(`You successfully ${approved ? 'approved' : 'rejected'} this ride.`);
       if (showWarningModal) {
         this.toggleModal();
       }

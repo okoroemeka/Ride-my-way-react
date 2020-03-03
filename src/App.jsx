@@ -6,12 +6,9 @@ import PropTypes from 'prop-types';
 import 'react-toastify/dist/ReactToastify.min.css';
 import Home from './component/home/Home';
 import Header from './component/header/Header';
-import CreateRideOffer from './component/rideOffer/CreateRideOffer';
-// import Dashboard from './component/dashboard/Dashboard';
-import DashboardV2 from './component/dashboardv2';
 import Footer from './component/footer/Footer';
+import Dashboard from './Pages/Dashboard';
 // eslint-disable-next-line import/no-cycle
-import Ride from './component/rides/Ride';
 import './styles/style.css';
 
 class App extends Component {
@@ -31,9 +28,7 @@ class App extends Component {
           <div>
             <Switch>
               <Route exact path="/" component={Home} />
-              <Route path="/ride-offer" component={CreateRideOffer} />
-              <Route path="/request" component={Ride} />
-              <Route path="/dashboard" component={DashboardV2} />
+              <Route path="/dashboard" component={Dashboard} />
             </Switch>
           </div>
           {pathname !== '/' && <Footer />}

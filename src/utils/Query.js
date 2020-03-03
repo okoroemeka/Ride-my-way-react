@@ -1,5 +1,21 @@
 import gql from 'graphql-tag';
 
+const LOG_OUT = gql`
+  mutation signOut{
+    signOut{
+      text
+    }
+  }
+`;
+const GET_USER = gql`
+  query{
+    getUser{
+      id,
+      firstname,
+      lastname
+    }
+  }
+`;
 const JOIN_RIDES = gql`
   mutation joinRide($input: joinRideInput!) {
     joinRide(input: $input) {
@@ -60,4 +76,4 @@ const GET_REQUEST = gql`
   }
 `;
 
-export { GET_RIDES, GET_REQUEST, RESPOND_TO_REQUEST, JOIN_RIDES, GET_REQUESTS };
+export { GET_USER, GET_RIDES, GET_REQUEST, RESPOND_TO_REQUEST, JOIN_RIDES, GET_REQUESTS, LOG_OUT };
