@@ -9,10 +9,9 @@ const RequestWrapper = (props) => {
   const [error, setError] = useState();
   const [isFetching, setIsFetching] = useState(false);
 
-  const { rideId } = props;
+  const { rideId, children } = props;
   useEffect(() => {
     setError(null);
-    // setLoading(true);
     setIsFetching(true);
     getRideRequests(rideId)
       .then((result) => {
@@ -24,7 +23,7 @@ const RequestWrapper = (props) => {
         setIsFetching(false);
       });
   }, [rideId]);
-  return <div className="request__wrapper">{props.children(data, isFetching, error)}</div>;
+  return <div className="request__wrapper">{children(data, isFetching, error)}</div>;
 };
 
 export default RequestWrapper;
